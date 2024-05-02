@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 
 class ItemComponent extends StatelessWidget {
   final int contador;
-  // final IconButton button;
-  const ItemComponent({
-    super.key,
-    required this.contador,
-    /* required this.button */
-  });
+  final IconButton button;
+  const ItemComponent(
+      {super.key, required this.contador, required this.button});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +22,7 @@ class ItemComponent extends StatelessWidget {
               'Item ${contador.toString()}',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Icon(
-              Icons.delete,
-              color: Colors.red,
-            ),
-            // button.
+            button,
           ],
         ),
       ),

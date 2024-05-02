@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stateful_navigation_project/components/button_widget.dart';
 import 'package:stateful_navigation_project/components/item_component.dart';
 
 class SecondPage extends StatefulWidget {
@@ -9,7 +8,7 @@ class SecondPage extends StatefulWidget {
 }
 
 class _SecondPageState extends State<SecondPage> {
-  int contador = 0;
+  List<int> contador = [0, 1];
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +25,48 @@ class _SecondPageState extends State<SecondPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
-            ItemComponent(
-              contador: contador + 1,
-            ),
-            Text(contador.toString()),
-            Spacer(),
+            // const Spacer(),
+            for (int i in contador)
+              ItemComponent(
+                  contador: contador[i],
+                  button: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        contador.remove(contador.length - 1);
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                    ),
+                    style: ButtonStyle(
+                        iconColor: MaterialStateProperty.all(Colors.red)),
+                  )),
+            const Spacer(),
             ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    contador += 1;
-                  });
-                },
-                child: const Text('Increment Button')),
-            ButtonWidget(paraOnde: '/', informacao: "Voltar para Home"),
-            Padding(padding: EdgeInsets.only(bottom: 10))
+              onPressed: () {
+                setState(() {
+                  contador.add(contador.length);
+                });
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red)),
+              child: const Text(
+                'Adicionar item',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red)),
+              child: const Text(
+                'Voltar para Home',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+            ),
           ],
         ),
       ),
